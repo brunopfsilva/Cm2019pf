@@ -70,8 +70,11 @@ public class MainActivity extends AppCompatActivity
                 call.enqueue(new Callback<Hospital>() {
                     @Override
                     public void onResponse(Call<Hospital> call, Response<Hospital> response) {
-                        Toast.makeText(MainActivity.this, " Ok "+call, Toast.LENGTH_SHORT).show();
-                        txt.setText(response.toString());
+                        int code = response.code();
+                        if (code == 200) {
+                            Toast.makeText(MainActivity.this, " Ok " + call, Toast.LENGTH_SHORT).show();
+                            txt.setText(response.toString());
+                        }
                     }
 
                     @Override
