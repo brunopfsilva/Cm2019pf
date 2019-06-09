@@ -71,9 +71,13 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResponse(Call<Hospital> call, Response<Hospital> response) {
                         int code = response.code();
+                        Toast.makeText(MainActivity.this, ""+code, Toast.LENGTH_SHORT).show();
                         if (code == 200) {
                             Toast.makeText(MainActivity.this, " Ok " + call, Toast.LENGTH_SHORT).show();
-                            txt.setText(response.toString());
+
+                            Hospital hospital = response.body();
+
+                            txt.setText( hospital.getName());
                         }
                     }
 
