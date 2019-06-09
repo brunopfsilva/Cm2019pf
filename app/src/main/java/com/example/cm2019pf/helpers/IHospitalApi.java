@@ -1,6 +1,7 @@
 package com.example.cm2019pf.helpers;
 
 import com.example.cm2019pf.model.Hospital;
+import com.example.cm2019pf.model.HospitalResult;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -15,6 +16,8 @@ public interface IHospitalApi {
     Call<Hospital>getHospitals();
 
 
+    @GET("institution")
+    Call<HospitalResult> listHospitais();
 
 
 

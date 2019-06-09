@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.cm2019pf.helpers.IHospitalApi;
 import com.example.cm2019pf.model.Hospital;
+import com.example.cm2019pf.model.HospitalResult;
 import com.example.cm2019pf.view.MapsActivity;
 
 import retrofit2.Call;
@@ -65,24 +66,25 @@ public class MainActivity extends AppCompatActivity
 
                // IHospitalApi hospitalApi = IHospitalApi.retrofit.create(Hospital.class);
 
-                Call<Hospital> call = hospitalinfo.getHospitals();
+                Call<HospitalResult> call = hospitalinfo.listHospitais();
 
-                call.enqueue(new Callback<Hospital>() {
+                call.enqueue(new Callback<HospitalResult>() {
                     @Override
-                    public void onResponse(Call<Hospital> call, Response<Hospital> response) {
+                    public void onResponse(Call<HospitalResult> call, Response<HospitalResult> response) {
                         int code = response.code();
                         Toast.makeText(MainActivity.this, ""+code, Toast.LENGTH_SHORT).show();
                         if (code == 200) {
-                            Toast.makeText(MainActivity.this, " Ok " + call, Toast.LENGTH_SHORT).show();
 
-                            Hospital hospital = response.body();
+                            Toast.makeText(MainActivity.this, " Ok " , Toast.LENGTH_SHORT).show();
 
-                            txt.setText( hospital.getName());
+                            HospitalResult hospital = response.body();
+
+//                            txt.setText( hospital.toString() );
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<Hospital> call, Throwable t) {
+                    public void onFailure(Call<HospitalResult> call, Throwable t) {
                         Toast.makeText(MainActivity.this, " "+t, Toast.LENGTH_SHORT).show();
 
                     }
