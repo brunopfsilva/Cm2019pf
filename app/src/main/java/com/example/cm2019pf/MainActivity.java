@@ -13,11 +13,24 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.cm2019pf.helpers.IHospitalApi;
+import com.example.cm2019pf.model.Hospital;
 import com.example.cm2019pf.view.MapsActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private Button btn;
+    private TextView txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +53,54 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        initiViews();
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                IHospitalApi hospitalinfo = IHospitalApi.retrofit.create(IHospitalApi.class);
+
+               // IHospitalApi hospitalApi = IHospitalApi.retrofit.create(Hospital.class);
+
+                Call<Hospital> call = hospitalinfo.getHospitals();
+
+                call.enqueue(new Callback<Hospital>() {
+                    @Override
+                    public void onResponse(Call<Hospital> call, Response<Hospital> response) {
+                        Toast.makeText(MainActivity.this, " Ok "+call, Toast.LENGTH_SHORT).show();
+                        txt.setText(response.toString());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Hospital> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, " "+t, Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                /*
+
+                try {
+                    Hospital hospital = call.execute().body();
+                    Toast.makeText(MainActivity.this, " "+hospital.getName(), Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception ex){
+                    Toast.makeText(MainActivity.this, " "+ex, Toast.LENGTH_SHORT).show();
+                }
+
+                */
+            }
+        });
+    }
+
+
+    private void initiViews(){
+
+        btn = (Button)findViewById(R.id.getData);
+        txt = (TextView)findViewById(R.id.textView);
+
     }
 
     @Override
