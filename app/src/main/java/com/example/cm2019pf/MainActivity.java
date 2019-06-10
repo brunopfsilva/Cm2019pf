@@ -1,35 +1,46 @@
 package com.example.cm2019pf;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.view.View;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.MenuItem;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.MenuItem;
+import android.view.View;
 
+import com.example.cm2019pf.controller.HospitalAdapter;
+import com.example.cm2019pf.helpers.Common;
 import com.example.cm2019pf.helpers.IHospitalApi;
 import com.example.cm2019pf.model.Hospital;
 import com.example.cm2019pf.model.HospitalResult;
 import com.example.cm2019pf.view.MapsActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    private RecyclerView recyclerView;
+    private GridLayoutManager gridLayoutManager;
+    private HospitalAdapter hospitalAdapter;
+    private List<HospitalResult> hospitalResultList;
 
 
     @Override
@@ -95,6 +106,10 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 */
+
+            initiViews();
+
+
             }
 
 
@@ -103,6 +118,59 @@ public class MainActivity extends AppCompatActivity
     private void initiViews(){
 
 
+        recyclerView = (RecyclerView)findViewById(R.id.rcsgetHospital);
+        hospitalResultList = new ArrayList<>();
+
+
+
+        get_data_from_server();
+    }
+
+    private void get_data_from_server() {
+
+        AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(Common.URL_HOSPITAL_PRINCIPAL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                IHospitalApi hospitalApi = retrofit.create(IHospitalApi.class);
+                Call<HospitalResult> requesthospitals =  hospitalApi.listHospitais();
+
+                requesthospitals.enqueue(new Callback<HospitalResult>() {
+                    @Override
+                    public void onResponse(Call<HospitalResult> call, Response<HospitalResult> response) {
+                                if(!response.isSuccessful()){
+                                Log.e("erro",""+response.code());
+                                }else{
+                                    //pega a lista de hospital vindo da url
+                                    HospitalResult hospitals = response.body();
+                                    for(Hospital h: hospitals.getResult()){
+                                    Log.i("Hospital "+" Nome"+h.getName(),"Distro"+h.getDistrict());
+                                    }
+                                }
+                    }
+
+                    @Override
+                    public void onFailure(Call<HospitalResult> call, Throwable t) {
+                        Log.e("erro",""+t.getMessage());
+                    }
+                });
+                return null;
+
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+
+            }
+        };
+
+        task.execute();
 
     }
 

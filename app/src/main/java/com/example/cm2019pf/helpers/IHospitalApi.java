@@ -21,10 +21,4 @@ public interface IHospitalApi {
 
 
 
-    public static final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(Common.URL_HOSPITAL_PRINCIPAL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-
 }

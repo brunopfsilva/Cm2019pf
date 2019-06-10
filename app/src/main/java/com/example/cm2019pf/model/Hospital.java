@@ -182,4 +182,24 @@ public class Hospital {
     public void setPilot(Boolean pilot) {
         this.pilot = pilot;
     }
+
+
+    public Hospital(Integer id, String name, String description, Double longitude, Double latitude, String address, Integer phone, String email, String district, String standbyTimesUrl, Boolean shareStandbyTimes, Boolean hasCTH, Boolean hasSIGLIC, Boolean hasEmergency, String institutionURL, Boolean pilot) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.district = district;
+        this.standbyTimesUrl = standbyTimesUrl;
+        this.shareStandbyTimes = shareStandbyTimes;
+        this.hasCTH = hasCTH;
+        this.hasSIGLIC = hasSIGLIC;
+        this.hasEmergency = hasEmergency;
+        this.institutionURL = institutionURL;
+        this.pilot = pilot;
+    }
 }
