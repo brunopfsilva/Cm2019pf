@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity
                                     //pega a lista de hospital vindo da url
                                     HospitalResult hospitals = response.body();
                                     for(Hospital h: hospitals.getResult()){
-                                    Log.i("Hospital "+" Nome"+h.getName(),"Distro"+h.getDistrict());
+                                    Log.i("Hospital "+" Nome "+h.getName(),"Distro "+h.getDistrict());
                                     }
                                 }
                     }
