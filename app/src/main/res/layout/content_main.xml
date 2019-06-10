@@ -9,30 +9,8 @@
     tools:showIn="@layout/app_bar_main">
 
 
-    <Button
-        android:id="@+id/getData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="169dp"
-        android:layout_marginRight="169dp"
-        android:layout_marginBottom="430dp"
-        android:text="dados" />
-
-    <TextView
-        android:id="@+id/showData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="182dp"
-        android:layout_marginRight="182dp"
-        android:layout_marginBottom="296dp"
-        android:text="HOSPITAL" />
-
-
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcsgetHospital"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

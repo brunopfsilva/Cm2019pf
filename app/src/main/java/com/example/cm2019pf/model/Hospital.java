@@ -53,6 +53,8 @@ public class Hospital {
     @Expose
     private Boolean pilot;
 
+
+
     public Integer getId() {
         return id;
     }

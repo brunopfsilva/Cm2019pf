@@ -30,8 +30,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    private Button btn;
-    private TextView txt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +55,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
-        initiViews();
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+ /*
 
                 IHospitalApi hospitalinfo = IHospitalApi.retrofit.create(IHospitalApi.class);
-
-               // IHospitalApi hospitalApi = IHospitalApi.retrofit.create(Hospital.class);
 
                 Call<HospitalResult> call = hospitalinfo.listHospitais();
 
@@ -79,6 +72,8 @@ public class MainActivity extends AppCompatActivity
 
                             HospitalResult hospital = response.body();
 
+                            System.out.println(" hospital "+hospital.getResult());
+
 //                            txt.setText( hospital.toString() );
                         }
                     }
@@ -89,7 +84,7 @@ public class MainActivity extends AppCompatActivity
 
                     }
                 });
-                /*
+
 
                 try {
                     Hospital hospital = call.execute().body();
@@ -101,14 +96,13 @@ public class MainActivity extends AppCompatActivity
 
                 */
             }
-        });
-    }
+
+
 
 
     private void initiViews(){
 
-        btn = (Button)findViewById(R.id.getData);
-        txt = (TextView)findViewById(R.id.textView);
+
 
     }
 
