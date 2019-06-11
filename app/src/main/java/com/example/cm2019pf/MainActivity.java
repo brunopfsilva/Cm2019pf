@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity
 
 
         //seta o layout do recyclerview
-        gridLayoutManager = new GridLayoutManager(this,2);
+        gridLayoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         hospitalAdapter = new HospitalAdapter(this,hospitalResultList);
