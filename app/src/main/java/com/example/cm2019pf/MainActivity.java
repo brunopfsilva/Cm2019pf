@@ -1,8 +1,10 @@
 package com.example.cm2019pf;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private GridLayoutManager gridLayoutManager;
     private HospitalAdapter hospitalAdapter;
-    private List<HospitalResult> hospitalResultList;
+    private List<Hospital> hospitalResultList;
 
 
     @Override
@@ -66,69 +68,60 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
- /*
-
-                IHospitalApi hospitalinfo = IHospitalApi.retrofit.create(IHospitalApi.class);
-
-                Call<HospitalResult> call = hospitalinfo.listHospitais();
-
-                call.enqueue(new Callback<HospitalResult>() {
-                    @Override
-                    public void onResponse(Call<HospitalResult> call, Response<HospitalResult> response) {
-                        int code = response.code();
-                        Toast.makeText(MainActivity.this, ""+code, Toast.LENGTH_SHORT).show();
-                        if (code == 200) {
-
-                            Toast.makeText(MainActivity.this, " Ok " , Toast.LENGTH_SHORT).show();
-
-                            HospitalResult hospital = response.body();
-
-                            System.out.println(" hospital "+hospital.getResult());
-
-//                            txt.setText( hospital.toString() );
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<HospitalResult> call, Throwable t) {
-                        Toast.makeText(MainActivity.this, " "+t, Toast.LENGTH_SHORT).show();
-
-                    }
-                });
 
 
-                try {
-                    Hospital hospital = call.execute().body();
-                    Toast.makeText(MainActivity.this, " "+hospital.getName(), Toast.LENGTH_SHORT).show();
-                }
-                catch (Exception ex){
-                    Toast.makeText(MainActivity.this, " "+ex, Toast.LENGTH_SHORT).show();
-                }
 
-                */
 
+
+            //Carrega as views da MainActivity
             initiViews();
 
-
-            }
-
-
+        hospitalAdapter.notifyDataSetChanged();
+        }
 
 
-    private void initiViews(){
+
+
+         private void initiViews(){
 
 
         recyclerView = (RecyclerView)findViewById(R.id.rcsgetHospital);
+        //lista onde vao ser adicionados os objectos
         hospitalResultList = new ArrayList<>();
 
 
 
         get_data_from_server();
-    }
+
+        //seta o layout do recyclerview
+        gridLayoutManager = new GridLayoutManager(this,2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        hospitalAdapter = new HospitalAdapter(this,hospitalResultList);
+        recyclerView.setAdapter(hospitalAdapter);
+
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if(gridLayoutManager.findFirstCompletelyVisibleItemPosition() == hospitalResultList.size() -1 ){
+
+                    get_data_from_server();
+
+                }
+            }
+        });
+
+        //update card view
+
+
+
+         }
 
     private void get_data_from_server() {
 
-        AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
 
@@ -148,8 +141,42 @@ public class MainActivity extends AppCompatActivity
                                 }else{
                                     //pega a lista de hospital vindo da url
                                     HospitalResult hospitals = response.body();
+                                    try{
                                     for(Hospital h: hospitals.getResult()){
                                     Log.i("Hospital "+" Nome "+h.getName(),"Distro "+h.getDistrict());
+
+
+
+                                    Hospital hospitaldatamodel = new Hospital(
+
+                                            h.getId(),
+                                            h.getName(),
+                                            h.getDescription(),
+                                            h.getLongitude(),
+                                            h.getLatitude(),
+                                            h.getAddress(),
+                                            h.getPhone(),
+                                            h.getEmail(),
+                                            h.getDistrict(),
+                                            h.getStandbyTimesUrl(),
+                                            h.getShareStandbyTimes(),
+                                            h.getHasCTH(),
+                                            h.getHasSIGLIC(),
+                                            h.getHasEmergency(),
+                                            h.getInstitutionURL(),
+                                            h.getPilot()
+
+                                            );
+                                        //adiciona hospitais no array
+                                        hospitalResultList.add(hospitaldatamodel);
+
+                                    }
+
+                                        hospitalAdapter.notifyDataSetChanged();
+
+
+                                    }catch (Exception ex){
+
                                     }
                                 }
                     }
@@ -166,7 +193,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-
+                hospitalAdapter.notifyDataSetChanged();
             }
         };
 
