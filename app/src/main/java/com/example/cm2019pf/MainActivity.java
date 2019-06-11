@@ -77,7 +77,9 @@ public class MainActivity extends AppCompatActivity
             initiViews();
 
         hospitalAdapter.notifyDataSetChanged();
-        }
+        get_data_from_server();
+
+    }
 
 
 
@@ -87,11 +89,10 @@ public class MainActivity extends AppCompatActivity
 
         recyclerView = (RecyclerView)findViewById(R.id.rcsgetHospital);
         //lista onde vao ser adicionados os objectos
-        hospitalResultList = new ArrayList<>();
+        hospitalResultList = new ArrayList<Hospital>();
 
 
 
-        get_data_from_server();
 
         //seta o layout do recyclerview
         gridLayoutManager = new GridLayoutManager(this,2);
@@ -166,11 +167,14 @@ public class MainActivity extends AppCompatActivity
                                             h.getInstitutionURL(),
                                             h.getPilot()
 
+
+
                                             );
                                         //adiciona hospitais no array
                                         hospitalResultList.add(hospitaldatamodel);
 
                                     }
+
 
                                         hospitalAdapter.notifyDataSetChanged();
 

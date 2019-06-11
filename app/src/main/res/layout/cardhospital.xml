@@ -8,9 +8,7 @@
         android:id="@+id/idcardhospital"
         android:layout_width="match_parent"
         android:paddingTop="3dp"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="3dp"
-        android:layout_height="311dp" >
+        android:layout_height="211dp" >
 
 
 
@@ -21,38 +19,38 @@
 
             <TextView
                 android:id="@+id/tztnomeHosp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="190dp"
-                android:layout_marginRight="190dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
                 android:layout_marginBottom="257dp"
                 android:text="nome" />
 
             <TextView
                 android:id="@+id/txtdescription"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="179dp"
-                android:layout_marginRight="179dp"
-                android:layout_marginBottom="180dp"
+                android:layout_marginEnd="-4dp"
+                android:layout_marginRight="-4dp"
+                android:layout_marginBottom="130dp"
                 android:text="descricao" />
 
             <TextView
                 android:id="@+id/txtDistrict"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="185dp"
-                android:layout_marginRight="185dp"
-                android:layout_marginBottom="99dp"
+                android:layout_marginEnd="-2dp"
+                android:layout_marginRight="-2dp"
+                android:layout_marginBottom="39dp"
                 android:text="Distrito" />
 
             <TextView
@@ -66,6 +64,7 @@
                 android:layout_marginRight="65dp"
                 android:layout_marginBottom="45dp"
                 android:text="- " />
+
         </RelativeLayout>
 
 
