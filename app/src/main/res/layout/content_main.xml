@@ -11,6 +11,9 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcsgetHospital"
+        android:dividerHeight="8dp"
+        android:scrollbars="vertical"
+        android:background="#E1E7E1"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </RelativeLayout>

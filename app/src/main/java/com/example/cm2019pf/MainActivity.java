@@ -17,7 +17,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.cm2019pf.controller.HospitalAdapter;
 import com.example.cm2019pf.helpers.Common;
@@ -36,7 +38,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener  {
 
 
     private RecyclerView recyclerView;
@@ -79,6 +81,8 @@ public class MainActivity extends AppCompatActivity
         hospitalAdapter.notifyDataSetChanged();
         get_data_from_server();
 
+
+
     }
 
 
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setAdapter(hospitalAdapter);
 
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      /*  recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -112,9 +116,12 @@ public class MainActivity extends AppCompatActivity
 
                 }
             }
-        });
+        }); */
+
+
 
         //update card view
+
 
 
 
@@ -175,8 +182,6 @@ public class MainActivity extends AppCompatActivity
 
                                     }
 
-
-                                        hospitalAdapter.notifyDataSetChanged();
 
 
                                     }catch (Exception ex){
@@ -261,4 +266,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
