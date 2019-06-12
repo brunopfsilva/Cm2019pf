@@ -10,18 +10,8 @@
 
     <EditText
         android:layout_marginTop="18dp"
-        android:id="@+id/hospitalNome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
-
-    <EditText
-        android:layout_marginTop="18dp"
         android:id="@+id/hospitalDescricao"
         android:layout_width="match_parent"
-        android:layout_below="@+id/hospitalNome"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
@@ -46,5 +36,14 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Telefone" />
+    <EditText
+        android:layout_marginTop="18dp"
+        android:id="@+id/hospitalSite"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/hospitalTelefone"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Site" />
 
 </RelativeLayout>
