@@ -1,22 +1,21 @@
 package com.example.cm2019pf.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cm2019pf.MainActivity;
 import com.example.cm2019pf.R;
 import com.example.cm2019pf.model.Hospital;
+import com.example.cm2019pf.view.hospitalDetalheActivity;
+import com.example.cm2019pf.view.mapsHospitalsActivity;
 
 import java.util.List;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHolder> {
 
@@ -60,6 +59,13 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, " Id Hospital "+hospitalList.get(position).getId(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(context, hospitalDetalheActivity.class);
+
+                intent.putExtra("hopitalnome",hospitalList.get(position).getName());
+
+                context.startActivity(intent);
+
             }
         });
 

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,16 +16,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.cm2019pf.controller.HospitalAdapter;
 import com.example.cm2019pf.helpers.Common;
 import com.example.cm2019pf.helpers.IHospitalApi;
 import com.example.cm2019pf.model.Hospital;
 import com.example.cm2019pf.model.HospitalResult;
-import com.example.cm2019pf.view.MapsActivity;
+import com.example.cm2019pf.view.mapsHospitalsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(MainActivity.this, MapsActivity.class);
+                Intent it = new Intent(MainActivity.this, mapsHospitalsActivity.class);
                 startActivity(it);
             }
         });
