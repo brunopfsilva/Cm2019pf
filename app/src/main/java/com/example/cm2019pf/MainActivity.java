@@ -1,6 +1,5 @@
 package com.example.cm2019pf;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.cm2019pf.controller.HospitalAdapter;
+import com.example.cm2019pf.controller.getdataApiController;
 import com.example.cm2019pf.helpers.Common;
 import com.example.cm2019pf.helpers.IHospitalApi;
 import com.example.cm2019pf.model.Hospital;
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity
             //Carrega as views da MainActivity
             initiViews();
 
-        hospitalAdapter.notifyDataSetChanged();
         get_data_from_server();
 
 
@@ -124,9 +123,10 @@ public class MainActivity extends AppCompatActivity
 
          }
 
-    private void get_data_from_server() {
 
-        @SuppressLint("StaticFieldLeak") AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
+    public void get_data_from_server() {
+
+        AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
 
@@ -141,13 +141,13 @@ public class MainActivity extends AppCompatActivity
                 requesthospitals.enqueue(new Callback<HospitalResult>() {
                     @Override
                     public void onResponse(Call<HospitalResult> call, Response<HospitalResult> response) {
-                                if(!response.isSuccessful()){
-                                Log.e("erro",""+response.code());
-                                }else{
-                                    //pega a lista de hospital vindo da url
-                                    HospitalResult hospitals = response.body();
-                                    try{
-                                    for(Hospital h: hospitals.getResult()){
+                        if(!response.isSuccessful()){
+                            Log.e("erro",""+response.code());
+                        }else{
+                            //pega a lista de hospital vindo da url
+                            HospitalResult hospitals = response.body();
+                            try{
+                                for(Hospital h: hospitals.getResult()){
                                     Log.i("Hospital "+" Nome "+h.getName(),"Distro "+h.getDistrict());
 
 
@@ -173,18 +173,18 @@ public class MainActivity extends AppCompatActivity
 
 
 
-                                            );
-                                        //adiciona hospitais no array
-                                        hospitalResultList.add(hospitaldatamodel);
+                                    );
+                                    //adiciona hospitais no array
+                                    hospitalResultList.add(hospitaldatamodel);
 
-                                    }
-
-
-
-                                    }catch (Exception ex){
-
-                                    }
                                 }
+
+
+
+                            }catch (Exception ex){
+
+                            }
+                        }
                     }
 
                     @Override
@@ -206,6 +206,7 @@ public class MainActivity extends AppCompatActivity
         task.execute();
 
     }
+
 
     @Override
     public void onBackPressed() {

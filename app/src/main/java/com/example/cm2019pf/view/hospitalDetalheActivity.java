@@ -7,10 +7,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 
 import com.example.cm2019pf.R;
 
 public class hospitalDetalheActivity extends AppCompatActivity {
+
+
+    EditText nome,email,telefone,descricao,site;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,17 +30,37 @@ public class hospitalDetalheActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if(intent != null) {
+
+
             intent.getExtras();
-            String name = intent.getStringExtra("hopitalnome");
 
+            String getname = intent.getStringExtra("hopitalnome");
+            String getdescricao = intent.getStringExtra("hopitaldescricao");
+            String getfone = intent.getStringExtra("hopitaltelefone");
+            String getemail = intent.getStringExtra("hopitalemail");
+            String geturlinstituicao = intent.getStringExtra("hopitalsite");
 
-            this.setTitle(name);
+            descricao.setFocusable(false);
+            telefone.setFocusable(false);
+            email.setFocusable(false);
+            site.setFocusable(false);
+            descricao.setText(getdescricao);
+            telefone.setText(getfone);
+            email.setText(getemail);
+            site.setText(geturlinstituicao);
+
+            this.setTitle(getname);
 
         }
 
     }
 
     public void initViews(){
+
+        descricao = (EditText)findViewById(R.id.hospitalDescricao);
+        email = (EditText)findViewById(R.id.hospitalEmail);
+        telefone = (EditText)findViewById(R.id.hospitalTelefone);
+        site = (EditText)findViewById(R.id.hospitalSite);
 
     }
 

@@ -63,12 +63,10 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHo
                 Intent intent = new Intent(context, hospitalDetalheActivity.class);
 
                 intent.putExtra("hopitalnome",hospitalList.get(position).getName());
-                intent.putExtra("hopitaldescricao",hospitalList.get(position).getName());
-                intent.putExtra("hopitalmorada",hospitalList.get(position).getName());
-                intent.putExtra("hopitalnome",hospitalList.get(position).getName());
-                intent.putExtra("hopitalnome",hospitalList.get(position).getName());
-                intent.putExtra("hopitalnome",hospitalList.get(position).getName());
-                intent.putExtra("hopitalnome",hospitalList.get(position).getName());
+                intent.putExtra("hopitaldescricao",hospitalList.get(position).getDescription());
+                intent.putExtra("hopitaltelefone",hospitalList.get(position).getPhone());
+                intent.putExtra("hopitalemail",hospitalList.get(position).getEmail());
+                intent.putExtra("hopitalsite",hospitalList.get(position).getInstitutionURL());
 
 
 
