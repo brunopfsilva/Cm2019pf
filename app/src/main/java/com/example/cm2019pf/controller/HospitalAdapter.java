@@ -58,7 +58,6 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHo
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, " Id Hospital "+hospitalList.get(position).getId(), Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(context, hospitalDetalheActivity.class);
 
