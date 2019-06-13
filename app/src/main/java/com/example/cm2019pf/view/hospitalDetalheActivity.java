@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.cm2019pf.R;
 import com.example.cm2019pf.controller.actionController;
@@ -17,6 +18,7 @@ public class hospitalDetalheActivity extends AppCompatActivity {
 
     EditText nome,email,telefone,descricao,site;
     actionController actionControllerCall;
+    View view;
 
 
     @Override
@@ -54,7 +56,11 @@ public class hospitalDetalheActivity extends AppCompatActivity {
 
             this.setTitle(getname);
 
+
+
         }
+
+
 
     }
 
@@ -64,6 +70,16 @@ public class hospitalDetalheActivity extends AppCompatActivity {
         email = (EditText)findViewById(R.id.hospitalEmail);
         telefone = (EditText)findViewById(R.id.hospitalTelefone);
         site = (EditText)findViewById(R.id.hospitalSite);
+
+
+
+
+    }
+
+    public void openSite(View view) {
+
+
+        Toast.makeText(this, "Abri site "+site.getText().toString(), Toast.LENGTH_SHORT).show();
 
     }
 
