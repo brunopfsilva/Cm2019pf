@@ -10,11 +10,14 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.cm2019pf.R;
+import com.example.cm2019pf.controller.actionController;
 
 public class hospitalDetalheActivity extends AppCompatActivity {
 
 
     EditText nome,email,telefone,descricao,site;
+    actionController actionControllerCall;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +68,5 @@ public class hospitalDetalheActivity extends AppCompatActivity {
     }
 
 
-    public void openMap(View view) {
-
-
-
-        startActivity(new Intent(hospitalDetalheActivity.this,mapsHospitalsActivity.class));
-
-    }
 
 }
