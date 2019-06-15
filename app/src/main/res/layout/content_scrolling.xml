@@ -94,7 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/hospitalSite"
-        android:text="Ver tempo e Status" />
+        android:text="Tempo Médio de Espera para Atendimento" />
 
 
 </RelativeLayout>
