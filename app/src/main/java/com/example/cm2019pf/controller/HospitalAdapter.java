@@ -68,7 +68,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHo
                 intent.putExtra("hopitalsite",hospitalList.get(position).getInstitutionURL());
 
 
-
+                getdataApiController.get_data_from_server(hospitalList.get(position).getId().toString());
 
                 context.startActivity(intent);
 

@@ -11,11 +11,11 @@
     <EditText
         android:id="@+id/hospitalDescricao"
         android:layout_width="343dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="18dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="0dp"
         android:editable="false"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         android:text="Descricao" />
 
     <EditText
@@ -77,7 +77,7 @@
         app:srcCompat="@mipmap/ic_launcher_phone" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton3"
+        android:id="@+id/fcsendMail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/fCallNumber"
@@ -88,6 +88,13 @@
         android:layout_toLeftOf="@+id/fCallNumber"
         android:clickable="true"
         app:srcCompat="@mipmap/ic_launcher_email" />
+
+    <Button
+        android:id="@+id/btn_getTimes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hospitalSite"
+        android:text="Ver tempo e Status" />
 
 
 </RelativeLayout>

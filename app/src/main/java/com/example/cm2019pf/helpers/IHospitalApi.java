@@ -12,8 +12,7 @@ import retrofit2.http.Path;
 public interface IHospitalApi {
 
     @GET("instituition")
-    //Call<Hospital>getHospitals(@Path("Name")String name);
-    Call<Hospital>getHospitals();
+    Call<Hospital>getHospitalstype(@Path("standbyTime")String id);
 
 
     @GET("institution")

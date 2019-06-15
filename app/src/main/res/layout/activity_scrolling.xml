@@ -45,4 +45,14 @@
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@android:drawable/ic_dialog_map" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabBack"
+        android:layout_width="269dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:onClick="backButton"
+        app:layout_anchor="@+id/app_bar"
+        app:layout_anchorGravity="end|top"
+        app:srcCompat="@mipmap/ic_launcher_back" />
+
 </android.support.design.widget.CoordinatorLayout>
