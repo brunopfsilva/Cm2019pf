@@ -1,6 +1,8 @@
 package com.example.cm2019pf.controller;
 
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.cm2019pf.helpers.Common;
 import com.example.cm2019pf.helpers.IHospitalApi;
@@ -9,6 +11,8 @@ import com.example.cm2019pf.model.hospitalTimes;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,6 +37,24 @@ public class getdataApiController {
 
                 IHospitalApi hospitalApi = retrofit.create(IHospitalApi.class);
                 Call<hospitalTimes> requesthospitaltypeandtimes = hospitalApi.getHospitalstype(id);
+
+                requesthospitaltypeandtimes.enqueue(new Callback<hospitalTimes>() {
+                    @Override
+                    public void onResponse(Call<hospitalTimes> call, Response<hospitalTimes> response) {
+                        if (!response.isSuccessful()){
+                            Log.e("error",response.toString());
+                        }else{
+                            hospitalTimes gethospitalTimes = response.body();
+
+                            Log.i("gethospitalTimes","gethospitalTimes "+gethospitalTimes.toString());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<hospitalTimes> call, Throwable t) {
+
+                    }
+                });
 
 
 

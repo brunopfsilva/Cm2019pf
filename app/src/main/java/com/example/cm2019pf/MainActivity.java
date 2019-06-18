@@ -1,5 +1,6 @@
 package com.example.cm2019pf;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity
 
     public void get_data_from_server() {
 
-        AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
 
@@ -176,7 +177,7 @@ public class MainActivity extends AppCompatActivity
                                     );
                                     //adiciona hospitais no array
                                     hospitalResultList.add(hospitaldatamodel);
-
+                                    hospitalAdapter.notifyDataSetChanged();
                                 }
 
 
