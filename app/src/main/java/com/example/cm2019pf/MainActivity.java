@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 if(gridLayoutManager.findFirstCompletelyVisibleItemPosition() == hospitalResultList.size() -1 ){
 
-                    get_data_from_server();
+                    get_data_from_server_urgency();
 
                 }
             }

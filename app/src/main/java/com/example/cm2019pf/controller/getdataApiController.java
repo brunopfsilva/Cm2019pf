@@ -1,20 +1,14 @@
 package com.example.cm2019pf.controller;
 
-import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.cm2019pf.helpers.Common;
 import com.example.cm2019pf.helpers.IHospitalApi;
-import com.example.cm2019pf.model.Hospital;
-import com.example.cm2019pf.model.HospitalResult;
-import com.example.cm2019pf.model.hospitalType;
+import com.example.cm2019pf.model.hospitalTimes;
 
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -22,11 +16,11 @@ public class getdataApiController {
 
 
 
-    private static List<hospitalType> hospitalResultList;
+    private static List<hospitalTimes> hospitalResultList;
     private static HospitalAdapter hospitalAdapter;
 
 
-    public static void get_data_from_server(final String id) {
+    public static void get_data_from_server_urgency(final String id) {
 
          AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
@@ -38,6 +32,8 @@ public class getdataApiController {
                         .build();
 
                 IHospitalApi hospitalApi = retrofit.create(IHospitalApi.class);
+                Call<hospitalTimes> requesthospitaltypeandtimes = hospitalApi.getHospitalstype(id);
+
 
 
 

@@ -16,7 +16,7 @@ public class hospitalDetalheActivity extends AppCompatActivity {
 
 
     EditText nome,email,telefone,descricao,site;
-
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class hospitalDetalheActivity extends AppCompatActivity {
             String getfone = intent.getStringExtra("hopitaltelefone");
             String getemail = intent.getStringExtra("hopitalemail");
             String geturlinstituicao = intent.getStringExtra("hopitalsite");
+            webView = new WebView(this);
 
             descricao.setFocusable(false);
             telefone.setFocusable(false);
@@ -52,7 +53,7 @@ public class hospitalDetalheActivity extends AppCompatActivity {
             email.setText(getemail);
             site.setText(geturlinstituicao);
 
-            this.setTitle(descricao.getText().toString());
+            this.setTitle(getdescricao);
 
 
 
@@ -71,7 +72,6 @@ public class hospitalDetalheActivity extends AppCompatActivity {
 
 
 
-
     }
 
     public void openSite(View view) {
@@ -79,7 +79,7 @@ public class hospitalDetalheActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Abri site "+site.getText().toString(), Toast.LENGTH_SHORT).show();
 
-        WebView webView = new WebView(view.getContext());
+
 
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);

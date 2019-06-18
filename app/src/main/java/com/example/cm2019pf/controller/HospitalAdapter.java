@@ -8,12 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cm2019pf.R;
 import com.example.cm2019pf.model.Hospital;
 import com.example.cm2019pf.view.hospitalDetalheActivity;
-import com.example.cm2019pf.view.mapsHospitalsActivity;
 
 import java.util.List;
 
@@ -68,7 +66,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHo
                 intent.putExtra("hopitalsite",hospitalList.get(position).getInstitutionURL());
 
 
-                getdataApiController.get_data_from_server(hospitalList.get(position).getId().toString());
+                getdataApiController.get_data_from_server_urgency(hospitalList.get(position).getId().toString());
 
                 context.startActivity(intent);
 
