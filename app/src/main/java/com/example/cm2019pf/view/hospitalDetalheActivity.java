@@ -15,13 +15,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.cm2019pf.R;
+import com.example.cm2019pf.controller.getdataApiController;
+
+import cn.carbs.android.library.MDDialog;
 
 public class hospitalDetalheActivity extends AppCompatActivity {
 
 
     EditText nome,email,telefone,descricao,site;
     WebView webView;
-    FloatingActionButton fbsendmail;
+    FloatingActionButton fbsendmail,fbopensite;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class hospitalDetalheActivity extends AppCompatActivity {
             String getfone = intent.getStringExtra("hopitaltelefone");
             String getemail = intent.getStringExtra("hopitalemail");
             String geturlinstituicao = intent.getStringExtra("hopitalsite");
+            id = intent.getStringExtra("hospitalId");
             webView = new WebView(this);
 
             descricao.setFocusable(false);
@@ -62,6 +67,8 @@ public class hospitalDetalheActivity extends AppCompatActivity {
 
 
 
+
+
             fbsendmail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -71,6 +78,12 @@ public class hospitalDetalheActivity extends AppCompatActivity {
 
         }
 
+            fbopensite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openSite(v);
+                }
+            });
 
 
     }
@@ -82,15 +95,11 @@ public class hospitalDetalheActivity extends AppCompatActivity {
         telefone = (EditText)findViewById(R.id.hospitalTelefone);
         site = (EditText)findViewById(R.id.hospitalSite);
         fbsendmail = (FloatingActionButton)findViewById(R.id.fcsendMail);
-
+        fbopensite = (FloatingActionButton)findViewById(R.id.fopenSite);
 
     }
 
     public void openSite(View view) {
-
-
-        Toast.makeText(this, "Abri site "+site.getText().toString(), Toast.LENGTH_SHORT).show();
-
 
 
         webView.getSettings().setLoadsImagesAutomatically(true);
@@ -135,6 +144,31 @@ public class hospitalDetalheActivity extends AppCompatActivity {
             }
 
         });
+
+    }
+
+    public void openTimes(View view) {
+
+        new MDDialog.Builder(hospitalDetalheActivity.this)
+                .setTitle("Status Hospital")
+                .setContentView(R.layout.hospitaltimesandtype)
+                .setPositiveButton("Positivo", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(hospitalDetalheActivity.this, "Acao a implementar", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Negativo", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(hospitalDetalheActivity.this, "Acao a implementar", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .create()
+                .show();
+
+        getdataApiController.get_data_from_server_urgency(id);
+
 
     }
 }

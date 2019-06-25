@@ -36,7 +36,7 @@ public class getdataApiController {
                         .build();
 
                 IHospitalApi hospitalApi = retrofit.create(IHospitalApi.class);
-                Call<hospitalTimes> requesthospitaltypeandtimes = hospitalApi.getHospitalstype(id);
+                Call<hospitalTimes> requesthospitaltypeandtimes = hospitalApi.getHospitalstypebyId(id);
 
                 requesthospitaltypeandtimes.enqueue(new Callback<hospitalTimes>() {
                     @Override
@@ -67,7 +67,7 @@ public class getdataApiController {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                hospitalAdapter.notifyDataSetChanged();
+//                hospitalAdapter.notifyDataSetChanged();
             }
         };
 

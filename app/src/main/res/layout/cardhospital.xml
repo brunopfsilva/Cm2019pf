@@ -33,6 +33,7 @@
 
             <TextView
                 android:id="@+id/tztnomeHosp"
+                android:textColor="@color/md_dialog_black_light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="-"
@@ -40,6 +41,7 @@
 
             <TextView
                 android:id="@+id/txtdescription"
+                android:textColor="@color/md_dialog_black_light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
@@ -48,12 +50,24 @@
 
 
             <TextView
+                android:textColor="@color/md_dialog_black_light"
                 android:id="@+id/txtDistrict"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="89dp"
                 android:text="-"
                 android:textAlignment="center" />
+
+
+            <TextView
+                android:textColor="@color/md_dialog_black_light"
+                android:id="@+id/txtproximidade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtDistrict"
+                android:layout_marginTop="8dp"
+                android:text="Kilometros: "
+                 />
 
 
         </RelativeLayout>

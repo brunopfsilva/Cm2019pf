@@ -50,7 +50,6 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHo
         viewHolder.textViewnome.setText("Nome: "+ hospitalList.get(position).getName());
         viewHolder.textViewdescricao.setText("Descricao: "+ hospitalList.get(position).getDescription());
         viewHolder.textViewdistro.setText("Distro: "+ hospitalList.get(position).getDistrict());
-        //viewHolder.textViewphone.setText(hospitalList.get(position).getPhone());
 
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -64,9 +63,10 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHo
                 intent.putExtra("hopitaltelefone",hospitalList.get(position).getPhone().toString());
                 intent.putExtra("hopitalemail",hospitalList.get(position).getEmail());
                 intent.putExtra("hopitalsite",hospitalList.get(position).getInstitutionURL());
+                intent.putExtra("hospitalId",hospitalList.get(position).getId().toString());
 
 
-             //   getdataApiController.get_data_from_server_urgency(hospitalList.get(position).getId().toString());
+              //  getdataApiController.get_data_from_server_urgency(hospitalList.get(position).getId().toString());
 
                 context.startActivity(intent);
 
@@ -101,9 +101,6 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.ViewHo
             textViewnome = (TextView)itemView.findViewById(R.id.tztnomeHosp);
             textViewdescricao = (TextView)itemView.findViewById(R.id.txtdescription);
             textViewdistro = (TextView)itemView.findViewById(R.id.txtDistrict);
-            //textViewphone = (TextView)itemView.findViewById(R.id.txtPhoneHospital);
-
-
 
 
     }
