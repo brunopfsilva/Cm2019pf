@@ -1,6 +1,7 @@
 package com.example.cm2019pf;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.cm2019pf.controller.HospitalAdapter;
 import com.example.cm2019pf.controller.getdataApiController;
@@ -24,6 +26,7 @@ import com.example.cm2019pf.helpers.Common;
 import com.example.cm2019pf.helpers.IHospitalApi;
 import com.example.cm2019pf.model.Hospital;
 import com.example.cm2019pf.model.HospitalResult;
+import com.example.cm2019pf.view.hospitalDetalheActivity;
 import com.example.cm2019pf.view.mapsHospitalsActivity;
 
 import java.util.ArrayList;
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity
     private GridLayoutManager gridLayoutManager;
     private HospitalAdapter hospitalAdapter;
     private List<Hospital> hospitalResultList;
+    private ProgressDialog dialog;
+
 
 
     @Override
@@ -74,18 +79,20 @@ public class MainActivity extends AppCompatActivity
 
 
             //Carrega as views da MainActivity
-            initiViews();
 
-        get_data_from_server();
 
 
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initiViews();
+        get_data_from_server();
+    }
 
-
-
-         private void initiViews(){
+    private void initiViews(){
 
 
         recyclerView = (RecyclerView)findViewById(R.id.rcsgetHospital);
@@ -127,21 +134,27 @@ public class MainActivity extends AppCompatActivity
 
     public void get_data_from_server() {
 
+
+        dialog = new ProgressDialog(MainActivity.this);
+        dialog.setMessage("Carregando...");
+        dialog.setCancelable(false);
+        dialog.show();
+
         @SuppressLint("StaticFieldLeak") AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
 
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(Common.URL_HOSPITAL_PRINCIPAL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
 
-                IHospitalApi hospitalApi = retrofit.create(IHospitalApi.class);
+
+                IHospitalApi hospitalApi = getdataApiController.getRetrofitInstance().create(IHospitalApi.class);
                 Call<HospitalResult> requesthospitals =  hospitalApi.listHospitais();
 
                 requesthospitals.enqueue(new Callback<HospitalResult>() {
                     @Override
                     public void onResponse(Call<HospitalResult> call, Response<HospitalResult> response) {
+                        if (dialog.isShowing()){
+                            dialog.dismiss();
+                        }
                         if(!response.isSuccessful()){
                             Log.e("erro",""+response.code());
                         }else{
@@ -190,9 +203,15 @@ public class MainActivity extends AppCompatActivity
 
                     @Override
                     public void onFailure(Call<HospitalResult> call, Throwable t) {
-                        Log.e("erro",""+t.getMessage());
+                        if (dialog.isShowing()){
+                            dialog.dismiss();
+                            Toast.makeText(MainActivity.this, "Error ao carregar os dados", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
+
+
                 return null;
 
             }

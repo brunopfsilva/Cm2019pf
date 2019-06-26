@@ -1,8 +1,10 @@
 package com.example.cm2019pf.view;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +14,26 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.cm2019pf.R;
+import com.example.cm2019pf.controller.HospitalAdapter;
 import com.example.cm2019pf.controller.getdataApiController;
+import com.example.cm2019pf.controller.hospitalgetTimeandTypeAdapter;
+import com.example.cm2019pf.helpers.Common;
+import com.example.cm2019pf.helpers.IHospitalApi;
+import com.example.cm2019pf.model.HospitalResultStatus;
+import com.example.cm2019pf.model.hospitalTimes;
+
+import java.util.List;
 
 import cn.carbs.android.library.MDDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class hospitalDetalheActivity extends AppCompatActivity {
 
@@ -26,6 +42,13 @@ public class hospitalDetalheActivity extends AppCompatActivity {
     WebView webView;
     FloatingActionButton fbsendmail,fbopensite;
     String id;
+
+    ProgressDialog dialog;
+
+    //listview status
+    List<HospitalResultStatus> hospitalResultList;
+    hospitalgetTimeandTypeAdapter hospitalAdapter;
+    ListView lstStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +74,6 @@ public class hospitalDetalheActivity extends AppCompatActivity {
             String getemail = intent.getStringExtra("hopitalemail");
             String geturlinstituicao = intent.getStringExtra("hopitalsite");
             id = intent.getStringExtra("hospitalId");
-            webView = new WebView(this);
 
             descricao.setFocusable(false);
             telefone.setFocusable(false);
@@ -96,11 +118,13 @@ public class hospitalDetalheActivity extends AppCompatActivity {
         site = (EditText)findViewById(R.id.hospitalSite);
         fbsendmail = (FloatingActionButton)findViewById(R.id.fcsendMail);
         fbopensite = (FloatingActionButton)findViewById(R.id.fopenSite);
+        lstStatus = (ListView)findViewById(R.id.lststatushospital);
 
     }
 
     public void openSite(View view) {
 
+        webView = new WebView(this);
 
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
@@ -134,7 +158,7 @@ public class hospitalDetalheActivity extends AppCompatActivity {
 
                 try {
                     startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-                    finish();
+                   // finish();
                     Log.i("Finished sending email", "");
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(hospitalDetalheActivity.this,
@@ -167,8 +191,86 @@ public class hospitalDetalheActivity extends AppCompatActivity {
                 .create()
                 .show();
 
-        getdataApiController.get_data_from_server_urgency(id);
+        get_data_from_server_urgency(id);
 
 
+    }
+
+
+    public void get_data_from_server_urgency(final String id) {
+
+        dialog = new ProgressDialog(hospitalDetalheActivity.this);
+        dialog.setMessage("Carregando...");
+        dialog.setCancelable(false);
+        dialog.show();
+
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void,Void,Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+
+
+
+                IHospitalApi hospitalApi =  getdataApiController.getRetrofitInstance().create(IHospitalApi.class);
+
+                if (id!=null) {
+
+                    Call<HospitalResultStatus> call = hospitalApi.getHospitalstypebyId(id);
+
+
+                    call.enqueue(new Callback<HospitalResultStatus>() {
+                        @Override
+                        public void onResponse(Call<HospitalResultStatus> call, Response<HospitalResultStatus> response) {
+                            if (dialog.isShowing()){
+                                dialog.dismiss();
+
+                                Toast.makeText(hospitalDetalheActivity.this, "Sucesso!", Toast.LENGTH_SHORT).show();
+                                }
+                        }
+
+                        @Override
+                        public void onFailure(Call<HospitalResultStatus> call, Throwable t) {
+                            if (dialog.isShowing()){
+                                dialog.dismiss();
+                                Toast.makeText(hospitalDetalheActivity.this, "Erro ao carregar... "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                                Log.i("erro objecto",t.getMessage());
+                            }
+                        }
+                    });
+
+
+
+                } //end if id difrente de null
+
+
+
+                return null;
+
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+//                hospitalAdapter.notifyDataSetChanged();
+            }
+        };
+
+        task.execute();
+
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+
+
+
+    }
+
+    public void openMap(View view) {
+        startActivity(new Intent(this,mapsHospitalsActivity.class));
     }
 }

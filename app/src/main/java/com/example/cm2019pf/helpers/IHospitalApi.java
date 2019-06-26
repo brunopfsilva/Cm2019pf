@@ -1,7 +1,9 @@
 package com.example.cm2019pf.helpers;
 
 import com.example.cm2019pf.model.HospitalResult;
-import com.example.cm2019pf.model.hospitalTimes;
+import com.example.cm2019pf.model.HospitalResultStatus;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -11,7 +13,7 @@ public interface IHospitalApi {
 
 
     @GET("standbyTime/{id}")
-    Call<hospitalTimes>getHospitalstypebyId(@Path("id")String id);
+    Call<HospitalResultStatus> getHospitalstypebyId(@Path("id")String id);
 
 
     @GET("institution")
